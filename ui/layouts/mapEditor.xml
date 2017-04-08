@@ -1,0 +1,403 @@
+<Layout name="mainLayout" ignore="true">
+
+<Layout name="saveFile">
+	<Size x="200" y="20" />
+	<Anchor relativeTo="openFile" relativePoint="TOPRIGHT" point="TOPLEFT" />
+	
+	<Button name="saveBtn" text="Save map">
+		<Font size="18" name="tahoma"/>
+		<Size x="100" y="20" />
+		<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+		<AbsDimension x="0" y="0" />
+		<Scripts>
+			<OnClick>
+				saveMap();
+				showPopup("Saved");
+			</OnClick>
+		</Scripts>
+	</Button>
+</Layout>
+
+	<Layout name="enableTile_lt">
+		<Anchor relativePoint="TOP" point="TOP" />
+		<Size x="50" y="30" />
+				
+		<Checkbox name="enableTile" placeholder="Enable Tile">
+			<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+			<Size x="20" y="30" />
+			<BackgroundTexture path="ui/lightOff.png" />
+			<NormalTexture path="ui/lightOn.png" />
+			<Scripts>
+				<OnClick>
+					loadTile();
+				</OnClick>
+			</Scripts>
+		</Checkbox>
+		
+		<Button name="additionalOptions" placeholder="Additional options" text="+">
+			<Anchor relativeTo="enableTile" relativePoint="TOPRIGHT" point="TOPLEFT" />
+			<Size x="15" y="15" />
+			<AbsDimension x="10" y="0" />
+			<NormalTexture path="ui/layout.png" />
+			<Scripts>
+				<OnClick>
+					toggle("additionalMenu_lt");
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Layout>
+
+		<Layout name="additionalMenu_lt" visible="false">
+			<Anchor relativeTo="enableTile_lt" relativePoint="TOPRIGHT" point="TOPLEFT" />
+			<Size x="100" y="430" />
+			<BackgroundTexture path="ui/layout.png" />
+				
+			<Checkbox name="showMesh" placeholder="Draw mesh">
+				<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+				<Size x="25" y="25" />
+				<BackgroundTexture path="ui/mesh.png" />
+				<NormalTexture path="ui/checkedAnim.png" />
+				<Scripts>
+					<OnClick>
+						setShowMesh(isChecked("showMesh"));
+					</OnClick>
+				</Scripts>
+			</Checkbox>
+		</Layout>
+
+
+<Layout name="openFile">
+	<Size x="100" y="20" />
+	<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+
+	
+	<Button name="file_btn" text="Open map">
+		<Size x="100" y="20" />
+		<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+		<AbsDimension x="0" y="0" />
+		<Scripts>
+			<OnClick>
+				toggle("mapsList");
+			</OnClick>
+		</Scripts>
+	</Button>
+</Layout>
+
+	<Layout name="mapsList" scrollable="true" visible="false">
+		<SelectedLayout name="mapItem" class="animationClass" visible="false">
+			<BackgroundTexture path="ui/itemBackground.png" />
+			<Size x="100" y="20" />
+			<FontString name="mapName">
+				<Size x="70" y="20" />
+			</FontString>
+			<Scripts>
+				<OnClick>
+					switchMap(self.id);
+					hide("mapsList");
+				</OnClick>
+			</Scripts>
+		</SelectedLayout>
+		
+		<Anchor relativeTo="openFile" relativePoint="BOTTOMLEFT" point="TOPLEFT" />
+		<AbsDimension x="0" y="0" />
+		<BackgroundTexture path="ui/layout.png" />
+		<Size x="100" y="60" />
+	</Layout>
+	
+	<Layout name="controlPanel">
+		<Anchor relativePoint="TOPRIGHT" point="TOPRIGHT" />
+		<AbsDimension x="0" y="0" />
+		<Size x="35" y="64" />
+				
+		<Checkbox name="handView" aplaceholder="Hand View">
+			<Anchor relativePoint="TOPRIGHT" point="TOPRIGHT" />
+			<AbsDimension x="0" y="0" />
+			<Size x="35" y="35" />
+			<BackgroundTexture path="ui/hand.png" />
+			<NormalTexture path="ui/checkedAnim.png" />
+			<Scripts>
+				<OnClick>
+				switchButtons(self.name);
+				</OnClick>
+			</Scripts>
+		</Checkbox>
+		
+		<Checkbox name="relief" aplaceholder="Mesh">
+			<Anchor relativeTo="handView" relativePoint="BOTTOMLEFT" point="TOPLEFT" />
+			<AbsDimension x="0" y="5" />
+			<Size x="35" y="35" />
+			<BackgroundTexture path="ui/mesh.png" />
+			<NormalTexture path="ui/checkedAnim.png" />
+			<Scripts>
+				<OnClick>
+					switchButtons(self.name);
+					toggle("meshPanel");
+				</OnClick>
+			</Scripts>
+		</Checkbox>
+		
+		<Checkbox name="textureDraw" placeholder="Texture">
+			<Anchor relativeTo="relief" relativePoint="BOTTOMLEFT" point="TOPLEFT" />
+			<AbsDimension x="0" y="5" />
+			<Size x="35" y="35" />
+			<BackgroundTexture path="ui/texture.png" />
+			<NormalTexture path="ui/checkedAnim.png" />
+			<Scripts>
+				<OnClick>
+					switchButtons(self.name);
+					toggle("texturesPanel");
+				</OnClick>
+			</Scripts>
+		</Checkbox>
+		
+	<Checkbox name="addObject" aplaceholder="addObject">
+			<Anchor relativeTo="textureDraw" relativePoint="BOTTOMLEFT" point="TOPLEFT" />
+			<AbsDimension x="0" y="5" />
+			<Size x="35" y="35" />
+			<BackgroundTexture path="ui/objects.jpg" />
+			<NormalTexture path="ui/checkedAnim.png" />
+			<Scripts>
+				<OnClick>
+					switchButtons(self.name);
+					toggle("addObject_pnl");
+				</OnClick>
+			</Scripts>
+		</Checkbox>
+	</Layout>
+	
+<Layout name="addObject_pnl" visible="false">
+	<Size x="140" y="120" />
+	<Anchor relativeTo="controlPanel" relativePoint="TOPLEFT" point="TOPRIGHT" />
+	<AbsDimension x="-5" y="0" />
+	<BackgroundTexture path="ui/layout.png" />
+		
+	<Button text="Add" name="addObjectBtn">
+		<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+		<Size x="30" y="30" />
+		<Scripts>
+			<OnClick>
+				toggle("objectsList_lt");
+				getGlobalObjectsList();
+			</OnClick>
+		</Scripts>
+	</Button>
+</Layout>
+	
+<Layout name="meshPanel" visible="false">
+	<Size x="40" y="120" />
+	<Anchor relativeTo="controlPanel" relativePoint="TOPLEFT" point="TOPRIGHT" />
+	<AbsDimension x="-5" y="0" />
+	<BackgroundTexture path="ui/layout.png" />
+		
+	<Checkbox name="movingDown">
+		<BackgroundTexture path="ui/meshDown.png" />
+		<NormalTexture path="ui/checkedAnim.png" />
+		<Size x="30" y="30" />
+		<Anchor relativePoint="TOP" point="TOP" />
+		<Scripts>
+			<OnClick>
+
+			</OnClick>
+		</Scripts>
+	</Checkbox>
+</Layout>
+
+
+<Layout name="objectsList_lt" visible="false">
+	<Size x="700" y="750" />
+	<Anchor relativePoint="TOP" point="TOP" />
+	<AbsDimension x="0" y="0" />
+	<BackgroundTexture path="ui/layout.png" />
+	<Layout name="objectList">
+		<Size x="700" y="700" />
+	
+		<Layout name="objectRow">
+			<Size x="700" y="80" />
+			<Anchor relativePoint="TOP" point="TOP" />
+			<AbsDimension x="0" y="15" />
+
+			
+			<Layout name="objectColumn">
+				<Size x="80" y="80" />
+				<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+				<AbsDimension x="10" y="0" />
+				
+				<Scripts>
+					<OnClick>
+						hide("objectsList_lt");
+						local imgPath = getText("objectName"..replace(self.name, "objectColumn", ""));
+						setModelName("models/gameobjects/"..imgPath);
+			
+					</OnClick>
+				</Scripts>
+			
+				<FontString name="objectName" text="">
+					<Anchor relativePoint="BOTTOM" point="TOP" />
+					<AbsDimension x="0" y="0" />
+					<Size x="80" y="40" />
+				</FontString>
+			</Layout>
+		</Layout>
+	</Layout>
+	<Layout name="paginationObject_lt">
+		<Anchor relativePoint="BOTTOM" point="BOTTOM" />
+		<AbsDimension x="0" y="0" />
+		<Size x="110" y="20" />
+				
+		<Button name="prevObject">
+			<Size x="20" y="20" />
+			<Anchor relativeTo="paginationObject" relativePoint="TOPLEFT" point="TOPRIGHT" />
+			<NormalTexture path="ui/arrowBack.png" />
+			<Scripts>
+				<OnClick>
+				prevObjectPage();
+				</OnClick>
+			</Scripts>
+		</Button>
+		
+		<Button name="nextObject">
+			<Size x="20" y="20" />
+			<NormalTexture path="ui/arrowForward.png" />
+			<Anchor relativeTo="paginationObject" relativePoint="TOPRIGHT" point="TOPLEFT" />
+			<Scripts>
+				<OnClick>
+				nextObjectPage();
+				</OnClick>
+			</Scripts>
+		</Button>
+		
+		<FontString name="paginationObject">
+			<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+			<AbsDimension x="0" y="0" />
+			<Size x="70" y="20" />
+		</FontString>
+	</Layout>
+</Layout>
+
+<Layout name="texturesList_lt" visible="false">
+	<Size x="700" y="750" />
+	<Anchor relativePoint="TOP" point="TOP" />
+	<AbsDimension x="0" y="0" />
+	<BackgroundTexture path="ui/layout.png" />
+	<Layout name="texturesList">
+		<Size x="700" y="700" />
+	
+		<Layout name="row">
+			<Size x="700" y="80" />
+			<Anchor relativePoint="TOP" point="TOP" />
+			<AbsDimension x="0" y="10" />
+
+			
+			<Layout name="column">
+				<Size x="80" y="80" />
+				<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+				<AbsDimension x="10" y="0" />
+		
+				<Scripts>
+					<OnClick>
+						setSelectedTexture(self.value);
+						hide("texturesList_lt");
+					</OnClick>
+				</Scripts>
+			</Layout>
+		</Layout>
+	</Layout>
+	<Layout name="pagination_lt">
+		<Anchor relativePoint="BOTTOM" point="BOTTOM" />
+		<AbsDimension x="0" y="0" />
+		<Size x="110" y="20" />
+				
+		<Button name="prev">
+			<Size x="20" y="20" />
+			<Anchor relativeTo="pagination" relativePoint="TOPLEFT" point="TOPRIGHT" />
+			<NormalTexture path="ui/arrowBack.png" />
+			<Scripts>
+				<OnClick>
+					prevTexturePage();
+				</OnClick>
+			</Scripts>
+		</Button>
+		
+		<Button name="next">
+			<Size x="20" y="20" />
+			<NormalTexture path="ui/arrowForward.png" />
+			<Anchor relativeTo="pagination" relativePoint="TOPRIGHT" point="TOPLEFT" />
+			<Scripts>
+				<OnClick>
+					nextTexturePage()
+				</OnClick>
+			</Scripts>
+		</Button>
+		
+		<FontString name="pagination">
+			<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+			<AbsDimension x="0" y="0" />
+			<Size x="70" y="20" />
+		</FontString>
+	</Layout>
+</Layout>
+	
+<Layout name="texturesPanel" visible="false">
+	<Size x="40" y="120" />
+	<Anchor relativeTo="controlPanel" relativePoint="TOPLEFT" point="TOPRIGHT" />
+	<AbsDimension x="-5" y="0" />
+	<BackgroundTexture path="ui/layout.png" />
+		
+		
+	<Checkbox name="addTexture" placeholder="Add">
+		<BackgroundTexture path="ui/addTexture.png" />
+		<NormalTexture path="ui/checkedAnim.png" />
+		<Size x="30" y="30" />
+		<Anchor relativePoint="TOP" point="TOP" />
+		<Scripts>
+			<OnClick>
+				getGrounTexturesList();
+				toggle("texturesList_lt");
+				switchCheckboxes(self.name)
+			</OnClick>
+		</Scripts>
+	</Checkbox>
+	<Checkbox name="blendTextures" placeholder="Merge">
+		<Anchor relativeTo="addTexture" relativePoint="BOTTOMLEFT" point="TOPLEFT" />
+		<NormalTexture path="ui/checkedAnim.png" />
+		<BackgroundTexture path="ui/mergeTexture.png" />
+		<Size x="30" y="30" />
+		<Scripts>
+			<OnClick>
+				getGrounTexturesList();
+				toggle("texturesList_lt");
+				switchCheckboxes(self.name)
+			</OnClick>
+		</Scripts>
+	</Checkbox>
+</Layout>
+
+	<Layout name="rightPanel" visible="false">
+		<Anchor relativePoint="TOPRIGHT" point="TOPRIGHT" />
+		<AbsDimension x="0" y="0" />
+		<BackgroundTexture path="ui/layout.png" />
+		<Size x="200" y="100" />
+		
+			<FontString name="sizeRadius" text="1">
+				<Anchor relativePoint="TOP" point="TOP" />
+				<AbsDimension x="0" y="0" />
+				<Size x="40" y="20" />
+			</FontString>
+			
+		<Slidebar name="size" min="3" max="160" slider="10" vertical="false">
+			<Size x="170" y="20" />
+			<Anchor relativePoint="TOP" point="TOP" />
+			<AbsDimension x="0" y="20" />
+			<Scripts>
+				<OnChange>
+					local val = getSlideValue(self.name);
+					setText("sizeRadius", round(val,2));
+					setSelectedArea(round(val,2));
+				</OnChange>
+				<OnEndChange>
+
+				</OnEndChange>
+			</Scripts>
+		</Slidebar>
+	</Layout>
+</Layout>

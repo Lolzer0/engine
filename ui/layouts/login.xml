@@ -1,0 +1,170 @@
+
+
+<Model name="platform" path="models/podium.dx" />
+<Layout name="realmsList" visible="false">
+	<Size x="700" y="700" />
+	<Anchor relativePoint="CENTER" point="CENTER" />
+	<AbsDimension x="0" y="0" />
+	<BackgroundTexture path="ui/layout.png" />
+	
+	
+	<Layout name="realms">
+		<Size x="600" y="550" />
+		<Anchor relativePoint="TOP" point="TOP" />
+		<AbsDimension x="0" y="50" />
+		<BackgroundTexture path="ui/layoutStraight.png" />
+			
+		<SelectedLayout name="realm">
+			<Size x="600" y="20" />
+			<Anchor relativePoint="TOP" point="TOP" />
+			<AbsDimension x="0" y="0" />
+			<NormalTexture path="ui/selectedLayout.png" />
+			
+			<FontString name="realmName" text="">
+				<Size x="200" y="20" />
+				<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+				<AbsDimension x="0" y="0" />
+			</FontString>
+			
+			<Scripts>
+				<OnDblClick>
+					connectToWorld_Lua(self);
+				</OnDblClick>
+			</Scripts>
+		</SelectedLayout>
+	</Layout>
+	
+	<Button name="cancelRealms" text="CANCEL">
+		<Size x="100" y="20" />
+		<Anchor relativePoint="BOTTOM" point="BOTTOM" />
+		<AbsDimension x="0" y="-40" />
+		<Scripts>
+			<OnClick>
+				hide("realmsList");
+			</OnClick>
+		</Scripts>
+	</Button>
+</Layout>
+
+<Layout name="mainLayout">
+	<Anchor relativePoint="TOPLEFT" point="TOPLEFT" />
+
+	
+	<EditText name="login_input">
+		<Size x="200" y="50" />
+		<Anchor relativeTo="password_input" relativePoint="TOP" point="BOTTOM" />
+		<AbsDimension x="0" y="-40" />
+	</EditText>
+	<EditText name="password_input" password="true">
+		<Size x="200" y="50" />
+		<Anchor relativePoint="BOTTOM" point="BOTTOM" />
+		<AbsDimension x="0" y="-170" />
+	</EditText>
+	
+	<FontString name="login_lbl" text="LOGIN">
+		<Size x="100" y="20" />
+		<Anchor relativeTo="login_input" relativePoint="TOP" point="BOTTOM" />
+		<AbsDimension x="0" y="0" />
+	</FontString>
+	<FontString name="password_lbl" text="PASSWORD">
+		<Size x="100" y="20" />
+		<Anchor relativeTo="password_input" relativePoint="TOP" point="BOTTOM" />
+		<AbsDimension x="0" y="0" />
+	</FontString>
+	
+	<Button name="login_btn" text="SIGN_IN">
+		<Size x="200" y="40" />
+		<Anchor relativeTo="password_input" relativePoint="BOTTOM" point="TOP" />
+		<AbsDimension x="0" y="40" />
+		<Scripts>
+			<OnClick>
+				login();
+			</OnClick>
+		</Scripts>
+	</Button>
+	
+	<FontString name="rights" text="RIGHTS">
+		<Size x="200" y="20" />
+		<Anchor relativePoint="BOTTOM" point="BOTTOM" />
+		<AbsDimension x="0" y="-10" />
+	</FontString>
+	
+	<FontString name="version" text="VERSION_TEXT VERSION">
+		<Size x="200" y="20" />
+		<Anchor relativePoint="BOTTOMRIGHT" point="BOTTOMRIGHT" />
+		<AbsDimension x="0" y="-10" />
+	</FontString>
+	
+	
+	<Button name="launch" text="OUR_SITE">
+		<Size x="150" y="30" />
+		<Anchor relativePoint="BOTTOMRIGHT" point="BOTTOMRIGHT" />
+		<AbsDimension x="-40" y="-140" />
+		<Scripts>
+			<OnClick>
+				launchCommunitySite();
+			</OnClick>
+		</Scripts>
+	</Button>
+	<Button name="quit" text="QUIT">
+		<Size x="150" y="30" />
+		<Anchor relativeTo="launch" relativePoint="BOTTOM" point="TOP" />
+		<AbsDimension x="0" y="20" />
+		<Scripts>
+			<OnClick>
+				quitGame();
+			</OnClick>
+		</Scripts>
+	</Button>
+	
+	<Scripts>
+		<OnLoad>
+			changeCameraPos(-6, 5, 0, 6, 5, 0)
+		</OnLoad>
+	</Scripts>
+</Layout>
+
+
+<Layout name="charactersList" visible="false">
+	<Layout name="characters">
+		<Size x="350" y="700" />
+		<Anchor relativePoint="TOPRIGHT" point="TOPRIGHT" />
+		<AbsDimension x="-10" y="10" />
+		<BackgroundTexture path="ui/layout.png" />
+			
+		<SelectedLayout name="char">
+			<Size x="150" y="100" />
+			<Anchor relativePoint="TOP" point="TOP" />
+			<AbsDimension x="0" y="0" />
+			<NormalTexture path="ui/selectedChar.png" />
+			<BackgroundTexture path="ui/unselectedChar.png" />
+			
+			<FontString name="charName" text="">
+				<Size x="200" y="20" />
+				<Anchor relativePoint="TOP" point="TOP" />
+				<AbsDimension x="0" y="0" />
+			</FontString>
+			<FontString name="charLevel" text="25">
+				<Size x="200" y="20" />
+				<Anchor relativeTo="charName" relativePoint="BOTTOM" point="TOP" />
+				<AbsDimension x="0" y="0" />
+			</FontString>
+			<Scripts>
+				<OnDblClick>
+					loginCharacter(self.charId);
+					hide("charactersList");
+				</OnDblClick>
+				<OnClick>
+					changeCharacter(self.charId);
+					setSelected(self.name);
+				</OnClick>
+			</Scripts>
+		</SelectedLayout>
+		<Scripts>
+			<OnLoad>
+				setCoordinates("player", 1, 0, 0);
+				changeCameraPos(-6, 1, 0, 6, 1, 0)
+			</OnLoad>
+		</Scripts>
+	</Layout>
+</Layout>
